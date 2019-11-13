@@ -1,29 +1,21 @@
-import React, { Component } from 'react'
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import { ICategory } from '../../models/category';
+import CategoriesRequests from '../../api/categories';
 
-export class Menu extends Component {
+const Menu = () => {
+    const [categories, setCategories] = useState<ICategory[]>([]);
 
-    state = {
-        values: []
-    }
+    useEffect(() => {
+        CategoriesRequests.GetAll().then(response => {
+            setCategories(response);
+        }).catch(error => console.log(error));
+    }, [])
 
-    componentDidMount() {
-
-        axios.get('https://localhost:44371/api/products/').then((response) => {
-            console.log(response);
-            this.setState({
-                values: response.data
-            })
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                { this.state.values.map((item: any) => <li key={item.id}>{item.name}</li>) }
-            </div>
-        )
-    }
+    return (
+        <div>
+            { categories.map((category) => <li key={category.id}>{category.categoryName}</li>) }
+        </div>
+    )
 }
 
 export default Menu

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import './header.component.style.scss';
 
 class Header extends Component {
     render() {
         return (
-            <header>
-                Header
+            <header className="header_area sticky-header">
+                
             </header>
         )
     }
